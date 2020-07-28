@@ -186,7 +186,7 @@ if __name__ == "__main__": # main app start
     parser.add_argument('-bs','--block-size', type=int, default=1024, help='Readback block size (in bytes), defaults to 1024')
     args = parser.parse_args()
     if(args.length < 1):
-        print('Empty length of data, exiting')
+        print('Zero length of data, exiting')
         exit(1)
     print("Turn the phone off, hold the boot key and connect the cable")
     m = MTreader(args.port, args.agent, args.stage_1, args.stage_2)
