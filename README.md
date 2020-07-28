@@ -4,6 +4,8 @@
 
 MTreader is a simple and small (under 200 SLOC) Python-based utility that aims to serve a single goal: read chunks of flash memory from MediaTek MT6261-based feature phones. It can also read firmware version before creating the readback, and supports displaying some decimal error codes from the platform itself if anything goes wrong. No other features are supported or even planned here.
 
+MTreader runs on Python 3.2 and above and only requires pySerial module as a dependency.
+
 ## How to use it?
 
 ### Basic usage
