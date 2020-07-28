@@ -11,10 +11,11 @@ NACK = b'\xA5'
 
 class MTreader:
 
-    def __init__(self, devfile, da_path, stage_1, stage_2):
+    def __init__(self, devfile, da_path, stage_1, stage_2, fio):
         self.da_path = da_path
         self.st1_offset, self.st1_size, self.st1_addr = [int(x, 16) for x in stage_1.split(":")]
         self.st2_offset, self.st2_size, self.st2_addr = [int(x, 16) for x in stage_2.split(":")]
+        self.fio = int(fio, 16)
         while True:
             try:
                 self.s = Serial(devfile, 115200)
@@ -124,13 +125,13 @@ class MTreader:
         size = self.st2_size
         data = self.get_da(offset, size)
         self.da_send_da(self.st2_addr, size, data, 0x800)
-        offset += size
         # Pass execution to DA
         r = self.cmd(b'\xD5' + struct.pack(">I", self.st1_addr), 2)
         assert r == b"\0\0"
         r = self.cmd(NONE, 4)
         self.send(b"\xa5\x05\xfe\x00\x08\x00\x70\x07\xff\xff\x02\x00\x00\x01\x08", 1) # something undocumented
         #Set flash ID info and other stuff
+        offset = self.fio
         for i in range(512):
             data = self.get_da(offset, 36)
             assert(data[:4] != b'\xFF\xFF\0\0')
@@ -180,16 +181,17 @@ if __name__ == "__main__": # main app start
     parser.add_argument('file', help='File to write the dump into')
     parser.add_argument('start', type=int, help='start position (in the phone flash memory)')
     parser.add_argument('length', type=int, help='data length')
-    parser.add_argument('-da','--agent', default=os.path.dirname(os.path.realpath(__file__))+'/MT6261.bin', help='Path to download agent (DA) binary')
+    parser.add_argument('-da','--agent', default=os.path.dirname(os.path.realpath(__file__))+'/default-da.bin', help='Path to download agent (DA) binary')
     parser.add_argument('-s1','--stage-1', default='0:0x718:0x70007000', help='Data for first stage DA loading (offset:size:addr format)')
     parser.add_argument('-s2','--stage-2', default='0x718:0x1e5c8:0x10020000', help='Data for second stage DA loading (offset:size:addr format)')
+    parser.add_argument('-fio','--flash-info-offset', default='0x1ece0', help='Flash info offset in the DA file (hex)')
     parser.add_argument('-bs','--block-size', type=int, default=1024, help='Readback block size (in bytes), defaults to 1024')
     args = parser.parse_args()
     if(args.length < 1):
         print('Zero length of data, exiting')
         exit(1)
     print("Turn the phone off, hold the boot key and connect the cable")
-    m = MTreader(args.port, args.agent, args.stage_1, args.stage_2)
+    m = MTreader(args.port, args.agent, args.stage_1, args.stage_2, args.flash_info_offset)
     m.connect()
     if m.chip != 0x6261:
         print("Warning: chip ID is detected as %04x instead of 6261, readback process might fail!" % m.chip)

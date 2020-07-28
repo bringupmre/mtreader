@@ -18,11 +18,12 @@ Example - backup all 4MB of flash memory (positions 0 to 4194304 on the device f
 
 ### Advanced usage
 
-In case your phone requires a different DA (Download Agent) binary, you can also specify its parameters:
+In case your phone requires a different DA (Download Agent) binary than the provided one (`default-da.bin`), you can also specify its parameters:
 
 - `-a` - path to DA file
 - `-s1` - DA stage 1 loading parameters in the `offset:size:addr` format with each value in hex (defaults to `0:0x718:0x70007000`)
 - `-s2` - DA stage 2 loading parameters in the `offset:size:addr` format with each value in hex (defaults to `0x718:0x1e5c8:0x10020000`)
+- `-fio` - offset to the flash information block within the DA file in hex (defaults to `0x1ece0`)
 
 You can also adjust the readback block size as well with the `-bs` parameter. Changing it is not recommended if the default of 1024 bytes works for you.
 
