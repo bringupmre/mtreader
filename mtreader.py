@@ -192,7 +192,7 @@ if __name__ == "__main__": # main app start
     m = MTreader(args.port, args.agent, args.stage_1, args.stage_2)
     m.connect()
     if m.chip != 0x6261:
-        print("Warning: chip ID is detected as %04x instead of 6261, readback process might fail!")
+        print("Warning: chip ID is detected as %04x instead of 6261, readback process might fail!" % m.chip)
     m.da_start()
     print("DA sent and responsive, starting the operation")
     ver = m.get_version().decode('ascii')
