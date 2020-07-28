@@ -11,7 +11,7 @@ MTreader runs on Python 3.2 and above and only requires pySerial module as a dep
 ### Basic usage
 
 ```
-python3 mtmaster.py port file start length
+python3 mtreader.py port file start length
 ```
 
 Example - backup all 4MB of flash memory (positions 0 to 4194304 on the device flash) into `rom.bin` file on Mac: `python3 mtreader.py /dev/tty.usbmodem14100 rom.bin 0 4194304` 
