@@ -9,10 +9,10 @@ class MTreader:
         while True:
             try:
                 self.s = Serial(devfile, 115200)
-                sys.stdout.write("\n")
+                sys.stdout.write('\n')
                 break
             except OSError as e:
-                sys.stdout.write(".")
+                sys.stdout.write('.')
                 sys.stdout.flush()
                 time.sleep(0.1)
 
@@ -38,20 +38,20 @@ class MTreader:
         return struct.unpack(endianness + sz * 'H', r)
 
     def write16(self, addr, val):
-        r = self.cmd(b'\xD2' + struct.pack(">II", addr, 1), 2)
-        assert(r == b"\0\1")
-        r = self.cmd(struct.pack(">H", val), 2)
-        assert(r == b"\0\1")
+        r = self.cmd(b'\xD2' + struct.pack('>II', addr, 1), 2)
+        assert(r == b'\0\1')
+        r = self.cmd(struct.pack('>H', val), 2)
+        assert(r == b'\0\1')
 
-    def read32(self, addr, sz=1, endianness=">"):
-        r = self.cmd(b'\xD1' + struct.pack(">II", addr, sz), (sz*4)+4)
-        return struct.unpack(endianness + "H" + (sz*'I')+"H", r)
+    def read32(self, addr, sz=1, endianness='>'):
+        r = self.cmd(b'\xD1' + struct.pack('>LL', addr, sz), (sz*4) + 4)
+        return struct.unpack(endianness + 'H' + (sz*'L') + 'H', r)
 
     def write32(self, addr, val):
-        r = self.cmd(b'\xD4' + struct.pack(">II", addr, 1), 2)
-        assert(r == b"\0\1")
-        r = self.cmd(struct.pack(">I", val), 2)
-        assert(r == b"\0\1")
+        r = self.cmd(b'\xD4' + struct.pack('>LL', addr, 1), 2)
+        assert(r == b'\0\1')
+        r = self.cmd(struct.pack('>L', val), 2)
+        assert(r == b'\0\1')
 
     def connect(self, timeout = 9.0):
         self.s.timeout = 0.1
@@ -72,7 +72,7 @@ class MTreader:
         # now all flash is mapped as little-endian 32-bit chunks at 0x10000000
 
     def read_flash(self, outfile, start, size, blk_size=1024):
-        outf = open(outfile, "wb")
+        outf = open(outfile, 'wb')
         offset = 0
         addr = 0x10000000 + start
         while size > 0:
@@ -82,7 +82,7 @@ class MTreader:
             size -= rsize
             addr += rsize
             outf.write(outchunk)
-            sys.stdout.write(".")
+            sys.stdout.write('.')
             sys.stdout.flush()
         outf.close()
 
@@ -91,9 +91,9 @@ class MTreader:
         r = self.send(b'\xC9\x00', 1)
         r = self.send(b'\xDB\x01\x40\x00\x00\x00\x00', 1)
 
-if __name__ == "__main__": # main app start
+if __name__ == '__main__': # main app start
     from argparse import ArgumentParser
-    parser = ArgumentParser(description="MTreader: a simple, no-nonsense MediaTek MT6261 phone ROM reader", epilog="(c) Luxferre 2020 --- No rights reserved <https://unlicense.org>")
+    parser = ArgumentParser(description='MTreader: a simple, no-nonsense MediaTek MT6261 phone ROM reader', epilog='(c) Luxferre 2020 --- No rights reserved <https://unlicense.org>')
     parser.add_argument('port', help='Serial port to connect to (/dev/ttyUSB0, /dev/tty.usbmodem14100 etc.)')
     parser.add_argument('file', help='File to write the dump into')
     parser.add_argument('start', type=int, help='start position (in the phone flash memory)')
@@ -103,12 +103,12 @@ if __name__ == "__main__": # main app start
     if(args.length < 1):
         print('Zero length of data, exiting')
         exit(1)
-    print("Turn the phone off, hold the boot key and connect the cable")
+    print('Turn the phone off, hold the boot key and connect the cable')
     m = MTreader(args.port)
-    print("Sending BROM handshake...")
+    print('Sending BROM handshake...')
     m.connect()
-    print("Connected, chip ID: %04x" % m.chip)
-    print("Dumping, don't disconnect...")
+    print('Connected, chip ID: %04x' % m.chip)
+    print('Dumping, do not disconnect...')
     m.read_flash(args.file, args.start, args.length, args.block_size)
-    print("\nROM dumped, disconnect the cable")
+    print('\nROM dumped, disconnect the cable')
     m.da_reset()
