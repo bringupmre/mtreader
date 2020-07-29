@@ -73,3 +73,7 @@ Most probably, no, but you may try.
 ### Are there any plans to support flashing in addition to readbacks?
 
 No. Not in this utility. Flashing MediaTek SoCs via USB is much more complicated than dumping. The process is generally quite fragile, relies on more proprietary, internal and undocumented logic, and in total requires much more research and rigorous testing on different devices with potential risk of bricking them to an unflashable state. When such research is complete, another utility will be published.
+
+## Known issues
+
+- Reset-after-dump functionality doesn't have stable behavior (so it's not recommended to dump phones with non-removable batteries for now)
