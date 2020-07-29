@@ -90,7 +90,7 @@ class MTreader:
 
 if __name__ == '__main__': # main app start
     from argparse import ArgumentParser
-    parser = ArgumentParser(description='MTreader: a simple, no-nonsense MediaTek MT6261 phone ROM reader', epilog='(c) Luxferre 2020 --- No rights reserved <https://unlicense.org>')
+    parser = ArgumentParser(description='MTreader: a simple, no-nonsense MediaTek MT626x phone ROM reader', epilog='(c) Luxferre 2020 --- No rights reserved <https://unlicense.org>')
     parser.add_argument('port', help='Serial port to connect to (/dev/ttyUSB0, /dev/tty.usbmodem14100 etc.)')
     parser.add_argument('file', help='File to write the dump into')
     parser.add_argument('start', type=int, help='start position (in the phone flash memory)')
