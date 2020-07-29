@@ -2,7 +2,7 @@
 
 ## What's this?
 
-MTreader is a simple and small (under 100 SLOC) Python-based utility that aims to serve a single goal: read chunks of flash memory from MediaTek MT6261-based feature phones. No other features are supported or even planned here.
+MTreader is a simple and small (under 100 SLOC) Python-based utility that aims to serve a single goal: read chunks of flash memory from MediaTek MT626x-based feature phones. No other features are supported or even planned here.
 
 MTreader runs on Python 3.2 and above and only requires pySerial module as a dependency.
 
@@ -66,7 +66,7 @@ It's a key that you hold to open the BROM serial port. It depends on the vendor.
 
 ### How is the tool working without a DA binary?
 
-Yes, MTreader used a DA in the past, but now it's completely blob-free (and this allowed to move it to the [public domain](./UNLICENSE)) and works via BROM itself. The trick is in using the correct mapping register setting: when we set the 32-bit value at the `0xa0510000` to 3, all the ROM contents (in 32-bit little-endian chunks) are mapped onto `0x10000000` base address by the MT6261 chipset itself.
+Yes, MTreader used a DA in the past, but now it's completely blob-free (and this allowed to move it to the [public domain](./UNLICENSE)) and works via BROM itself. The trick is in using the correct mapping register setting: when we set the 32-bit value at the `0xa0510000` to 3, all the ROM contents (in 32-bit little-endian chunks) are mapped onto `0x10000000` base address by the MT626x chipset itself.
 
 ### Where was information collected from?
 
@@ -82,7 +82,7 @@ No. Not in this utility. Flashing MediaTek SoCs via USB is much more complicated
 
 ### Are there any plans to move to direct USB access instead of relying on the USB-Serial drivers installed in the OS?
 
-Yes, there are some plans to create a PyUSB-based version and then a browser-based JS port (using WebUSB). This would unlock the access to the devices with non-standard BROM ports not seen by the USB-Serial drivers for some reason (including but not limited to MTK-based Nokia S30+ phones).
+Yes, there are some plans to create a PyUSB-based version and then a browser-based JS port (using WebUSB). This would unlock the access to the devices with non-standard BROM ports not seen by the USB-Serial drivers for some reason (including but not limited to most MTK-based Nokia S30+ phones).
 
 However, for this to happen, first all known issues (stated in the section below) need to be solved. Second, as this would drastically increase the codebase size, it might be wiser to do this porting as a part of a larger effort, for instance, when creating the universal utility for dumping and flashing after the research on the latter is complete.
 
