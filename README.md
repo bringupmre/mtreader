@@ -60,7 +60,7 @@ It's a key that you hold to open the BROM serial port. It depends on the vendor.
 
 ### How is the tool working without a DA binary?
 
-Yes, MTreader used a DA in the past, but now it's completely blob-free and works via BROM itself. The trick is in using the correct mapping register setting: when we set the 32-bit value at the `0xa0510000` to 3, all the ROM contents (in 32-bit little-endian chunks) are mapped onto `0x10000000` base address by the MT6261 chipset itself.
+Yes, MTreader used a DA in the past, but now it's completely blob-free (and this allowed to move it to the [public domain](./UNLICENSE)) and works via BROM itself. The trick is in using the correct mapping register setting: when we set the 32-bit value at the `0xa0510000` to 3, all the ROM contents (in 32-bit little-endian chunks) are mapped onto `0x10000000` base address by the MT6261 chipset itself.
 
 ### Where was information collected from?
 
