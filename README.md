@@ -48,7 +48,7 @@ With MTreader, you just need to:
 1. Enter the command with four necessary parameters - port, output file, range start and range length.
 2. Just disconnect the cable after a successful or unsuccessful operation - the tool will automatically send the hardware reset command anyway.
 
-MTreader was created to only do one thing and try doing it well, and in no way is going to compete with any proprietary flashing or dumping solutions.
+MTreader was created to only do one thing and try doing it well, and in no way is going to compete with any proprietary flashing or dumping solutions. However, it can even handle some phones in bricked state that FlashTool refuses to see or requires some non-standard DA to operate on them.
 
 ### How to detect the port file name?
 
