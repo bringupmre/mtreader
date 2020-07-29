@@ -56,12 +56,10 @@ class MTreader:
     def connect(self, timeout = 9.0):
         self.s.timeout = 0.1
         while True:
-            self.s.write(b'\xA0')
-            r = self.s.read(1)
+            r = self.send(b'\xA0', 1)
             if r == b'\x5F':
                 break
-        self.s.write(b'\x0A\x50\x05')
-        r = self.s.read(3)
+        r = self.send(b'\x0A\x50\x05', 3)
         assert(r == b'\xF5\xAF\xFA')
         self.chip = self.read16(0x80000008)[0]
         self.write16(0xa0030000, 0x2200) # disable system watchdog
