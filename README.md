@@ -25,9 +25,11 @@ You can also adjust the readback block size as well with the `-bs` parameter. Ch
 
 ### Which hardware is currently supported?
 
-MT6261-based OEM phones that can open BROM port that can be seen as USB-Serial. Nokias (genuine ones) will generally not work.
+MT6261-based OEM phones that can open BROM port that can be seen as USB-Serial. Nokias (genuine ones) will generally not work, unless connected without a battery.
 
 As for different MT6261 versions support, the tool had been successfully tested on various MT6261D and MT6261M handsets (provided they can also be supported by FlashTool). MT6261D still remains the primary target though.
+
+Also, at least one MT6260A-based phone had also been successfully dumped with this tool - Nokia 5310 DS (TA-1212). To run the dumping, connect the 5310 without a battery and then insert it. Disconnect the cable and the battery after the process.
 
 ### Why was this created then? Isn't FlashTool good enough?
 
