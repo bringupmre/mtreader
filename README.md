@@ -31,7 +31,9 @@ As for different MT6261 versions support, the tool had been successfully tested 
 
 ### Why was this created then? Isn't FlashTool good enough?
 
-No, it isn't. FlashTool is proprietary and single-platform. Having no viable open source alternative that can be run on any normal OS was enough to kickstart the research to create this tool.
+No, it isn't. First of all, FlashTool is proprietary and single-platform. Having no viable open source alternative that can be run on any normal OS was enough to kickstart the research to create this tool.
+
+Second, MTreader works on a lower level than FlashTool, so it can handle some phones in bricked state that FlashTool refuses to see or requires some non-standard DA to operate on them. Some of the many examples include Philips E106 or a bricked Maxcom MM817 with corrupted bootloader area where DA becomes unresponsive after sending it.
 
 Moreover, to in order to just create a flash dump with FlashTool, you'll need to:
 
@@ -40,15 +42,17 @@ Moreover, to in order to just create a flash dump with FlashTool, you'll need to
 3. Go to the "Readback" tab.
 4. Remove all blocks there and create the block with the memory range you want in a tiny GUI window.
 5. Select the path to save in another GUI window.
-6. Press "Readback" and connect the device with perfect timing for it to be seen by the tool.
-7. Probably reinsert the battery (if it's possible at all) after an unsuccessful or even successful operation.
+6. If working without battery, check another checkbox in the option menu.
+7. Press "Readback" and connect the device holding the bootkey with perfect timing for it to be seen by the tool.
+8. If working with battery, probably reinsert it (if it's possible at all) after an unsuccessful or even successful operation.
 
 With MTreader, you just need to:
 
 1. Enter the command with four necessary parameters - port, output file, range start and range length.
-2. Just disconnect the cable after a successful or unsuccessful operation - the tool will automatically send the hardware reset command anyway.
+2. Connect the cable holding the bootkey when asked, regardless of whether or not the phone has a battery in it.
+3. Just disconnect the cable after a successful or unsuccessful operation - the tool will automatically send the hardware reset command anyway.
 
-MTreader was created to only do one thing and try doing it well, and in no way is going to compete with any proprietary flashing or dumping solutions. However, it can even handle some phones in bricked state that FlashTool refuses to see or requires some non-standard DA to operate on them.
+MTreader was created to only do one thing and try doing it well, and in no way is going to compete with any proprietary flashing or dumping solutions.
 
 ### How to detect the port file name?
 

@@ -53,8 +53,8 @@ class MTreader:
         r = self.cmd(struct.pack('>L', val), 2)
         assert(r == b'\0\1')
 
-    def connect(self, timeout = 9.0):
-        self.s.timeout = 0.1
+    def connect(self, timeout = 0.1):
+        self.s.timeout = timeout
         while True:
             r = self.send(b'\xA0', 1)
             if r == b'\x5F':
@@ -63,7 +63,6 @@ class MTreader:
         assert(r == b'\xF5\xAF\xFA')
         self.chip = self.read16(0x80000008)[0]
         self.write16(0xa0030000, 0x2200) # disable system watchdog
-        self.write16(0xa0710074, 0x0001) # enable transfers from core to RTC
         self.write16(0xa0700a28, 0x8000) # enable USB download mode
         self.write16(0xa0700a24, 2) # disable battery watchdog
         self.write32(0xa0510000, 3) # enter memory map mode 3
