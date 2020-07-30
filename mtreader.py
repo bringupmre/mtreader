@@ -67,10 +67,8 @@ class MTreader:
         self.write16(0xa0700a24, 2) # disable battery watchdog
         self.write32(0xa0510000, 2) # enter memory map mode 2 to map ROM from the start of RAM
 
-    def read_flash(self, outfile, start, size, blk_size=1024):
+    def read_flash(self, outfile, addr, size, blk_size=1024):
         outf = open(outfile, 'wb')
-        offset = 0
-        addr = start
         while size > 0:
             rsize = min(size, blk_size)
             chunk = self.read32(addr, rsize>>2, '<')
