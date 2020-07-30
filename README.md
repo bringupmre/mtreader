@@ -84,8 +84,4 @@ No. Not in this utility. Flashing MediaTek SoCs via USB is much more complicated
 
 Yes, there are some plans to create a PyUSB-based version and then a browser-based JS port (using WebUSB). This would unlock the access to the devices with non-standard BROM ports not seen by the USB-Serial drivers for some reason (including but not limited to most MTK-based Nokia S30+ phones).
 
-However, for this to happen, first all known issues (stated in the section below) need to be solved. Second, as this would drastically increase the codebase size, it might be wiser to do this porting as a part of a larger effort, for instance, when creating the universal utility for dumping and flashing after the research on the latter is complete.
-
-## Known issues
-
-- Reset-after-dump functionality doesn't have stable behavior (so it's not recommended to dump phones with non-removable batteries for now)
+However, this would drastically increase the codebase size, it might be wiser to do this porting as a part of a larger effort, for instance, when creating the universal utility for dumping and flashing after the research on the latter is complete.

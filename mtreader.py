@@ -81,9 +81,7 @@ class MTreader:
         outf.close()
 
     def da_reset(self):
-        r = self.send(b'\xB9', 1)
-        r = self.send(b'\xC9\x00', 1)
-        r = self.send(b'\xDB\x01\x40\x00\x00\x00\x00', 1)
+        self.write16(0xa003001c, 0x1209)
 
 if __name__ == '__main__': # main app start
     from argparse import ArgumentParser
