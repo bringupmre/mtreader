@@ -80,7 +80,7 @@ class MTreader:
             sys.stdout.flush()
         outf.close()
 
-    def da_reset(self):
+    def reset(self):
         self.write16(0xa003001c, 0x1209)
 
 if __name__ == '__main__': # main app start
@@ -103,4 +103,4 @@ if __name__ == '__main__': # main app start
     print('Dumping, do not disconnect...')
     m.read_flash(args.file, args.start, args.length, args.block_size)
     print('\nROM dumped, disconnect the cable')
-    m.da_reset()
+    m.reset()
