@@ -65,13 +65,12 @@ class MTreader:
         self.write16(0xa0030000, 0x2200) # disable system watchdog
         self.write16(0xa0700a28, 0x8000) # enable USB download mode
         self.write16(0xa0700a24, 2) # disable battery watchdog
-        self.write32(0xa0510000, 3) # enter memory map mode 3
-        # now all flash is mapped as little-endian 32-bit chunks at 0x10000000
+        self.write32(0xa0510000, 2) # enter memory map mode 2 to map ROM from the start of RAM
 
     def read_flash(self, outfile, start, size, blk_size=1024):
         outf = open(outfile, 'wb')
         offset = 0
-        addr = 0x10000000 + start
+        addr = start
         while size > 0:
             rsize = min(size, blk_size)
             chunk = self.read32(addr, rsize>>2, '<')
