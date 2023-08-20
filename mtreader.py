@@ -8,7 +8,7 @@ class MTreader:
     def __init__(self, devfile):
         while True:
             try:
-                self.s = Serial(devfile, 115200)
+                self.s = Serial(devfile, 115200, rtscts=True, dsrdtr=True)
                 sys.stdout.write('\n')
                 break
             except OSError as e:
