@@ -83,13 +83,16 @@ class MTreader:
     def reset(self):
         self.write16(0xa003001c, 0x1209)
 
+def auto_int(x):
+    return int(x,0)
+
 if __name__ == '__main__': # main app start
     from argparse import ArgumentParser
     parser = ArgumentParser(description='MTreader: a simple, no-nonsense MediaTek MT626x phone ROM reader', epilog='(c) Luxferre 2020 --- No rights reserved <https://unlicense.org>')
     parser.add_argument('port', help='Serial port to connect to (/dev/ttyUSB0, /dev/tty.usbmodem14100 etc.)')
     parser.add_argument('file', help='File to write the dump into')
-    parser.add_argument('start', type=int, help='start position (in the phone flash memory)')
-    parser.add_argument('length', type=int, help='data length')
+    parser.add_argument('start', type=auto_int, help='start position (in the phone flash memory)')
+    parser.add_argument('length', type=auto_int, help='data length')
     parser.add_argument('-bs','--block-size', type=int, default=1024, help='Readback block size (in bytes), defaults to 1024')
     args = parser.parse_args()
     if(args.length < 1):
