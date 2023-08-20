@@ -93,7 +93,7 @@ if __name__ == '__main__': # main app start
     parser.add_argument('file', help='File to write the dump into')
     parser.add_argument('start', type=auto_int, help='start position (in the phone flash memory)')
     parser.add_argument('length', type=auto_int, help='data length')
-    parser.add_argument('-bs','--block-size', type=int, default=1024, help='Readback block size (in bytes), defaults to 1024')
+    parser.add_argument('-bs','--block-size', type=auto_int, default=1024, help='Readback block size (in bytes), defaults to 1024')
     args = parser.parse_args()
     if(args.length < 1):
         print('Zero length of data, exiting')
